@@ -1,0 +1,517 @@
+body {
+  border-radius: 25px;
+  border: 10px solid #d04c50;
+  outline-color: #d04c50;
+  background-image: radial-gradient(#e2628e 20%, #d78f92);
+  padding: 20px;
+  position: relative;
+  cursor: none;
+  overflow-x: hidden;
+  box-shadow: 0 0 0 25px #d04c50; /* Negative spread radius to extend the color outside the border */
+}
+
+.img--name {
+  max-width: 100%;
+  height: auto;
+  z-index: 1; /* Ensure the image is on top of the canvas */
+}
+
+.img--bg {
+  position: absolute;
+  max-width: 100%;
+  height: auto;
+  bottom: 0%; /* Adjusted position to fit under the border */
+  right: 0%;
+  z-index: 3; /* Ensure the image is on top of the canvas */
+}
+.img--cv {
+  position: absolute;
+  max-height: 100%;
+  width: auto;
+  top: 0%; /* Adjusted position to fit under the border */
+  left: 22%;
+  z-index: 3; /* Ensure the image is on top of the canvas */
+}
+
+.img--illu {
+  position: absolute;
+  max-height: 80%;
+  width: auto;
+  bottom: 0%; /* Adjusted position to fit under the border */
+  right: 0%;
+  z-index: 3; /* Ensure the image is on top of the canvas */
+  display: none; /* Initially hide all images */
+}
+
+.img--cont {
+  position: absolute;
+  max-height: 90%;
+  width: auto;
+  bottom: 0%; /* Adjusted position to fit under the border */
+  left: 15.4%;
+  z-index: 3; /* Ensure the image is on top of the canvas */
+}
+
+.text-container {
+  position: absolute;
+  top: 54.5%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center the container horizontally and vertically */
+  z-index: 3; /* Ensure the text is on top of the canvas */
+}
+
+.contact-text-container {
+  font-family: monospace;
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%); /* Center the container horizontally and vertically */
+  z-index: 3; /* Ensure the text is on top of the canvas */
+}
+
+p {
+  font-family: monospace;
+  font-size: 100%;
+  color: #ffffff;
+  text-align: center;
+  line-height: 80%;
+}
+
+p1 {
+  position: absolute;
+  font-family: "Courier New" ;
+  top: 50%;
+  left: 20%;
+  font-size: 80%;
+  color: #ffffff;
+  text-align: left;
+  z-index: 3
+}
+
+.text-consigne{
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  z-index: 3;
+}
+
+p2,
+p3 {
+  position: relative;
+  font-size: 20px;
+  color: #d04c50;
+  text-align: left;
+  display: block
+}
+
+p2 {
+  font-family: Copperplate, Papyrus, fantasy;
+  font-size: 50px;
+  letter-spacing: 5px
+}
+
+p3 {
+  font-family: "Helvetica";
+  font-size: 25px;
+  letter-spacing: 8px;
+  font-weight: bold
+}
+
+.p1 {
+  position: absolute;
+  font-family: "Courier New" ;
+  top: 35%;
+  left: 45%;
+  font-size: 150%;
+  color: #ffffff;
+  text-align: center;
+  z-index: 3
+}
+
+.img--menu {
+  max-height: 15%; /* Adjusted height to fit inside the body borders */
+  width: auto;
+  position: absolute;
+  top: 2vw; /* Adjusted position to fit under the border */
+  right: 0; /* Adjusted position to fit under the border */
+  transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Added transition property */
+  z-index: 100;
+  filter: brightness(80%);
+}
+
+#custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999; /* Ensure the cursor is above other content */
+  width: 80px; /* Adjust width as needed */
+  height: 100px; /* Adjust height as needed */
+  background-image: url('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/feeCursor01.png'); /* Set custom cursor image */
+  background-size: cover;
+  transform-origin: center; /* Set the rotation origin to the center of the cursor */
+  transform: translate(-5%, -5%) ;
+}
+
+.button-insta,
+.button-art,
+.button-mail,
+.button-n01,
+.button-n02,
+.button-n03,
+.button-n04,
+.button-n05,
+.button-n06,
+.button-n07,
+.button-n08,
+.button-link {
+  font-family: "Courier New";
+  text-decoration: none;
+  position: absolute;
+  background-color: #948fd7;
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  z-index: 100;
+  cursor: none;
+  border-radius: 2px;
+  box-shadow: 0 4px #6d69c6;
+  padding: 0.40% 1.3%;
+  font-size: 50%;
+  margin: 0.5% 0.3%;
+}
+
+.button-insta,
+.button-art,
+.button-mail,
+.button-link {
+  position: absolute;
+  background-color: #be71d5;
+  border: none;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  z-index: 100;
+  cursor: none;
+  border-radius: 2px;
+  box-shadow: 0 4px #8c52c5;
+  padding: 0.40% 1.3%;
+  font-size: 50%;
+  margin: 0.5% 0.3%;
+}
+
+.button-insta:hover,
+.button-art:hover,
+.button-mail:hover,
+.button-link:hover {
+  background-color: #e48cf2;
+}
+
+.button-n01:hover,
+.button-n02:hover,
+.button-n03:hover,
+.button-n04:hover,
+.button-n05:hover,
+.button-n06:hover,
+.button-n07:hover,
+.button-n08:hover {
+  background-color: #b6b0f1;
+}
+
+.button-insta:active,
+.button-art:active,
+.button-mail:active,
+.button-link:active {
+  background-color: #7a4393;
+  box-shadow: 0 1.5px #543181;
+  transform: translateY(3px);
+}
+
+.button-n01:active,
+.button-n02:active,
+.button-n03:active,
+.button-n04:active,
+.button-n05:active,
+.button-n06:active,
+.button-n07:active,
+.button-n08:active {
+  background-color: #595598;
+  box-shadow: 0 1.5px #403d84;
+  transform: translateY(3px);
+}
+
+/* Adjust the percentages to evenly distribute the buttons */
+.button-insta {
+  top: 75.9%;
+  left: 43.5%;
+}
+
+.button-n01 {
+  top: 75.9%;
+  left: 46.95%;
+}
+
+.button-n02 {
+  top: 75.9%;
+  left: 50.4%;
+}
+
+.button-art {
+  top: 68.8%;
+  left: 50.4%;
+}
+
+.button-n06 {
+  top: 68.8%;
+  left: 43.5%;
+}
+
+.button-n03 {
+  top: 61.5%;
+  left: 43.5%;
+}
+
+.button-n04 {
+  top: 72.3%;
+  left: 50.4%;
+}
+
+.button-n05 {
+  top: 61.5%;
+  left: 50.4%;
+}
+
+.button-mail {
+  top: 68.8%;
+  left: 46.95%;
+}
+
+.button-link {
+  top: 61.5%;
+  left: 46.95%;
+}
+
+.button-n07 {
+  top: 72.3%;
+  left: 43.5%;
+}
+
+.button-n08 {
+  top: 72.3%;
+  left: 46.95%;
+}
+
+
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition-property: left, bottom;
+  z-index: 3;
+  filter: contrast(140%);
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0; /* Position the sidebar on the right side */
+  background-color: #d04c50;
+  cursor: none; /* Hide the default cursor */
+  overflow-x: hidden;
+  transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 5px 20px 5px 5px;
+  text-decoration: none;
+  font-family: "Courier New";
+  font-size: 14px;
+  color: #ffffff;
+  display: block;
+  transition: 0.1s;
+}
+
+.sidebar a:hover {
+  color: #ffa7ff;
+  cursor: none;
+  overflow-x: hidden;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #d04c50;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.openbtn:hover {
+  background-color: #d04c50;
+}
+
+#main {
+  transition: margin-right .5s ; /* Change to margin-right for right sidebar */
+  padding: 16px;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.container-auto {
+  position: absolute;
+  top: 35%;
+  left: 2%;
+  z-index: 100;
+}
+
+.button-limb,
+.button-spine,
+.button-feet,
+.button-hand {
+  width: 20vw; /* Ensure the image fills the container */
+  height: 10vw;
+  position: absolute;
+  top: 37.25%;
+  left: 53.2%;
+  transform: translate(-50%, -50%); /* Corrected the transform property */
+  font-family: "Courier New";
+  text-decoration: none;
+  background-color: rgba(218, 131, 145, 0.6);
+  border: 2px solid #ecadb0;
+  color: white;
+  text-align: center;
+  z-index: 100;
+  cursor: none;
+  border-radius: 12px;
+  font-size: 2vw;
+  margin: 1.5vw; /* Adjusted margin */
+}
+
+.button-limb:hover,
+.button-spine:hover,
+.button-feet:hover,
+.button-hand:hover {
+  border: 5px solid #ecadb0
+}
+
+.button-limb:active,
+.button-spine:active,
+.button-feet:active,
+.button-hand:active {
+  border: 5px solid #ecadb0;
+  color: #ecadb0;
+}
+
+/* Adjust width as needed */
+.container {
+  width: calc(100% - 40px); /* Adjust based on the total width of buttons and margins */
+  text-align: center;
+}
+
+.container2 {
+  position: relative;
+  width: 20%; /* Adjust the width of the container to fit the images */
+  height: 20%; /* Adjust the height of the container to fit the images */
+  margin: 1.5vw; /* Adjust based on the total width of buttons and margins */
+  display: inline-block;
+
+}
+
+/* CSS styling for the pop-up image */
+.popup {
+  display: none; /* Initially hide the pop-up */
+  position: fixed;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+
+  padding: 10px;
+
+  z-index: 1000;
+}
+
+.popup img {
+  max-width: 50%;
+  max-height: 50%;
+}
+
+.popup button {
+  display: block;
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #d04c50;
+  border: none;
+  cursor: none;
+}
+
+.popup button:hover {
+  background-color: #a62c44;
+  cursor: none;
+}
+
+.arrow-img {
+  position: absolute;
+  bottom: 0px; /* Adjusted position to fit under the border */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.img--arrow {
+  max-width: 32vh; /* Adjusted to fit container width */
+  height: auto; /* Adjusted to limit height */
+}
+
+.img--demo {
+  width: 20vw; /* Ensure the image fills the container */
+  height: 10vw; /* Ensure the image fills the container */
+  object-fit: cover; /* Ensure the image covers the container */
+  border-radius: 12px;
+  margin: 1.5vw
+}
+
+#videoPlayer,
+#videoPlayer1,
+#videoPlayer2,
+#videoPlayer3 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 90vw; /* Set the width to 90% of the viewport width */
+  max-width: 800px; /* Set a maximum width to prevent it from becoming too large */
+  height: auto; /* Allow the height to adjust proportionally */
+  display: none; /* Hide the video player by default */
+}
+
+.closeBtn666 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: none;
+  background-color: #d04c50;
+  border-radius: 12px;
+  color: white;
+  padding: 5px 10px;
+  z-index: 1001;
+  display: none;
+}
+.closeBtn666:hover {
+  background-color: #EA7477;
+}

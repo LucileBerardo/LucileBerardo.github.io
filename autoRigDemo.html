@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lucile auto rig demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="custom-cursor"></div>
+  <section class="section--top">
+    <img class="img--name" src="./images/textLucileBerardo.png" alt="Lucile Berardo">
+
+    <div class="container-auto">
+
+      <div class="container2">
+        <img class="img--demo" src="./images/auto/autioHand03.gif" alt="hand">
+        <button id="button-hand" class="button-hand">Auto Hands</button>
+      </div>
+
+      <div class="container2">
+        <img class="img--demo" src="./images/auto/autospine03.gif" alt="spine">
+        <button id="button-spine" class="button-spine">Auto Spine</button>
+      </div>
+
+      <div class="container2">
+        <img class="img--demo" src="./images/auto/auto-leg.gif" alt="limb">
+        <button id="button-limb" class="button-limb">Auto Limbs</button>
+      </div>
+
+      <div class="container2">
+        <img class="img--demo" src="./images/auto/auto-feet06.gif" alt="feet">
+        <button id="button-feet" class="button-feet">Auto Foot</button>
+      </div>
+    </div>
+
+    <video id="videoPlayer" controls>
+      <source src="./videos/autoHand.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <video id="videoPlayer1" controls>
+      <source src="./videos/autoSpine.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <video id="videoPlayer2" controls>
+      <source src="./videos/autoLimb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <video id="videoPlayer3" controls>
+      <source src="./videos/autoFeet.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <span id="closeBtn666" class="closeBtn666">Close</span>
+
+
+  </section>
+
+  <script src="scriptCursor.js"></script>
+  <script>
+  // Show video player when button is clicked
+  document.getElementById("button-hand").addEventListener("click", function() {
+    var videoPlayer = document.getElementById("videoPlayer");
+    videoPlayer.style.display = "block";
+    document.getElementById("closeBtn666").style.display = "block"; // Show close button
+  });
+
+  // Show video player when button is clicked
+  document.getElementById("button-spine").addEventListener("click", function() {
+    var videoPlayer = document.getElementById("videoPlayer1");
+    videoPlayer.style.display = "block";
+    document.getElementById("closeBtn666").style.display = "block"; // Show close button
+  });
+
+  // Show video player when button is clicked
+  document.getElementById("button-limb").addEventListener("click", function() {
+    var videoPlayer = document.getElementById("videoPlayer2");
+    videoPlayer.style.display = "block";
+    document.getElementById("closeBtn666").style.display = "block"; // Show close button
+  });
+
+  // Show video player when button is clicked
+  document.getElementById("button-feet").addEventListener("click", function() {
+    var videoPlayer = document.getElementById("videoPlayer3");
+    videoPlayer.style.display = "block";
+    document.getElementById("closeBtn666").style.display = "block"; // Show close button
+  });
+
+  // Close video player when close button is clicked
+  document.getElementById("closeBtn666").addEventListener("click", function() {
+    var videoPlayer = document.getElementById("videoPlayer");
+    videoPlayer.style.display = "none";
+    document.getElementById("closeBtn666").style.display = "none"; // Hide close button
+  });
+
+  // Close video player when close button is clicked
+  document.getElementById("closeBtn666").addEventListener("click", function() {
+    var videoPlayer = document.getElementById("videoPlayer1");
+    videoPlayer.style.display = "none";
+    document.getElementById("closeBtn666").style.display = "none"; // Hide close button
+  });
+
+  // Close video player when close button is clicked
+  document.getElementById("closeBtn666").addEventListener("click", function() {
+    var videoPlayer = document.getElementById("videoPlayer2");
+    videoPlayer.style.display = "none";
+    document.getElementById("closeBtn666").style.display = "none"; // Hide close button
+  });
+
+  // Close video player when close button is clicked
+  document.getElementById("closeBtn666").addEventListener("click", function() {
+    var videoPlayer = document.getElementById("videoPlayer3");
+    videoPlayer.style.display = "none";
+    document.getElementById("closeBtn666").style.display = "none"; // Hide close button
+  });
+
+  </script>
+</body>
+</html>

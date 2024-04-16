@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>lucile home page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="custom-cursor"></div>
+  <section class="section--top">
+    <img class="img--name" src="./images/textLucileBerardo.png" alt="Lucile Berardo">
+    <img class="img--menu" src="./images/slide01.png" alt="Lavande">
+    <img class="img--illu" src="./images/illu-01.png" alt="win01">
+    <img class="img--illu" src="./images/illu-02.png" alt="win02">
+    <img class="img--illu" src="./images/illu-03.png" alt="win03">
+    <img class="img--illu" src="./images/illu-04.png" alt="win04">
+    <img class="img--illu" src="./images/illu-05.png" alt="win05">
+    <img class="img--illu" src="./images/illu-06.png" alt="win06">
+    <div class="text-consigne">
+
+      <p2>CLICK ON THE STARS</p2>
+      <p3>To collect them.</p3>
+
+    </div>
+  </section>
+
+  <div id="the-arrow-img" class="arrow-img">
+    <img class="img--arrow" src="./images/arrow.png" alt="arrow">
+
+  </div>
+
+  <div id="mySidebar" class="sidebar" onmouseover="openSidebar()" onmouseout="closeSidebar()">
+    <a href="aboutme.html">about me</a>
+    <a href="https://app.videas.fr/54e62b83-444f-4d91-b6d3-4ea5701c898f/">showreel 2024</a>
+    <a href="autoRigDemo.html">auto rig demo</a>
+    <a href="cv.html">curriculum vitae</a>
+    <a href="otherWork.html">other work</a>
+    <a href="contact.html">contact</a>
+  </div>
+
+  <div id="popup-image" class="popup">
+  <img src="./images/popup-image.png" alt="Pop-up Image">
+  <button id="close-popup">X</button>
+  </div>
+
+  <!-- Canvas -->
+  <canvas id="3dObjectCanvas"></canvas>
+
+  <!-- Load Three.js and GLTFLoader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/pmrem/PMREMGenerator.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // Declare isClicked variable to keep track of whether the link has been clicked
+    let isClicked = false;
+
+    // Wait for the DOM content to load before executing the script
+    document.addEventListener('DOMContentLoaded', function () {
+      let currentImageIndex = 0;
+      const renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+      }); // Set alpha to true for transparency
+      renderer.outputEncoding = THREE.sRGBEncoding;
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x000000, 0); // Set clearAlpha to 0 for transparent background
+      renderer.setPixelRatio(window.devicePixelRatio);
+
+      document.body.appendChild(renderer.domElement);
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+      camera.position.set(9, 3, 3);
+
+      // Load HDR texture
+      new THREE.RGBELoader().setDataType(THREE.UnsignedByteType).load('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/pink_sunrise_2k.hdr', function (texture) {
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+        scene.environment = envMap;
+        texture.dispose();
+        pmremGenerator.dispose();
+      });
+
+      // Instantiate GLTFLoader
+      const loader = new THREE.GLTFLoader();
+
+      // Load 3D model
+      loader.load('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/hand06.glb', function (gltf) {
+        const model = gltf.scene;
+
+        // Loop through each mesh in the model
+        model.traverse((child) => {
+          if (child.isMesh) {
+            // Check if the mesh has a material
+            if (child.material) {
+              // Modify the roughness property of the material to 1
+              child.material.roughness = 0.8;
+
+              // Add sheen (specular highlights) to the material
+              child.material.specular = new THREE.Color(0x5f4c50); // Color of the sheen
+              child.material.shininess = 100; // Controls the size of the sheen
+              child.material.emissive = new THREE.Color(0x000000);
+              child.material.color = new THREE.Color(0x671d1f)
+
+            }
+          }
+        });
+
+        model.position.set(0, 0, 0); // Set the position to (0, 0, 0) to place it at the origin
+        model.scale.set(1, 1, 1);
+        scene.add(model);
+        camera.lookAt(model.position);
+
+        // Add annotations (text labels)
+        createAnnotation('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/sparkling.png', 'showreel 2024', "https://app.videas.fr/54e62b83-444f-4d91-b6d3-4ea5701c898f/", 2.6, 0.75, 1.6, 0);
+        createAnnotation('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/sparkling.png', 'contact', "contact.html", 1.7, 0.06, -0.7, 1);
+        createAnnotation('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/sparkling.png', 'about me', "aboutme.html", -0.4, 0.9, 0.8, 2);
+        createAnnotation('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/sparkling.png', 'auto rig demo', "autoRigDemo.html", 0.8, -0.7, 1.97, 3);
+        createAnnotation('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/sparkling.png', 'curriculum vitae', "cv.html", 2.4, -0.96, 0.2, 4);
+        createAnnotation('https://cdn.jsdelivr.net/gh/LucileBerardo/3Dviewer/sparkling.png', 'other work', "otherWork.html", 1.26, 1.11, 0.43, 5);
+
+      }, undefined, function (error) {
+        console.error(error); // Log any loading errors to the console
+      });
+
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableRotate = true;
+      controls.enablePan = false;
+      controls.enableZoom = true;
+
+      // Array to store associations between text meshes and their icon meshes
+      const textIconPairs = [];
+
+      function createAnnotation(iconUrl, text, linkUrl, x, y, z, imageIndex) {
+        // Load font
+        const loader = new THREE.FontLoader();
+        loader.load('https://cdn.jsdelivr.net/gh/mrdoob/three.js/examples/fonts/gentilis_regular.typeface.json', function (font) {
+          // Create text geometry
+          const textGeometry = new THREE.TextGeometry(text, {
+            font: font,
+            size: 0.06, // Adjust size as needed
+            height: 0.01 // Adjust height as needed
+          });
+          textGeometry.computeBoundingBox();
+          const textWidth = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
+          const textHeight = textGeometry.boundingBox.max.y - textGeometry.boundingBox.min.y;
+          const textOffsetX = -0.5 * textWidth;
+          const textOffsetY = -0.5 * textHeight;
+          textGeometry.translate(textOffsetX, textOffsetY, 0); // Center the text
+          const textMaterial = new THREE.MeshBasicMaterial({
+            color: 0xffffff
+          }); // Corrected color value
+          const textMesh = new THREE.Mesh(textGeometry, textMaterial);
+          textMesh.position.set(x, y, z); // Set position
+          textMesh.visible = false; // Initially hidden
+
+          // Create icon mesh
+          const iconTexture = new THREE.TextureLoader().load(iconUrl);
+          iconTexture.magFilter = THREE.NearestFilter;
+          iconMaterial = new THREE.SpriteMaterial({
+            map: iconTexture
+          }); // Assign material to iconMaterial
+          let currentTile = 0;
+          const tileHoriz = 4;
+          const tileVert = 4;
+          iconTexture.repeat.set(1 / tileHoriz, 1 / tileVert);
+          iconTexture.offset.x = (currentTile % tileHoriz) / tileHoriz;
+          iconTexture.offset.y = (tileVert - Math.floor(currentTile / tileHoriz) - 1) / tileVert;
+
+          const iconMesh = new THREE.Sprite(iconMaterial);
+          iconMaterial.color.convertSRGBToLinear(); // Convert color space for better saturation control
+          iconMaterial.color.multiplyScalar(1.5);
+          const hsl = {
+            h: 290,
+            s: 1.0,
+            l: 0.8
+          }; // Hue (teinte), Saturation, Lightness (luminosité)
+          iconMaterial.color.setHSL(hsl.h / 360, hsl.s, hsl.l);
+          iconMesh.scale.set(0.4, 0.4, 1)
+          iconMesh.position.set(x, y, z); // Set position
+
+          // Make the text always face the camera (billboarding)
+          textMesh.onBeforeRender = function (renderer, scene, camera) {
+            textMesh.quaternion.copy(camera.quaternion);
+          };
+
+          // Make the icon always face the camera (billboarding)
+          iconMesh.onBeforeRender = function (renderer, scene, camera) {
+            iconMesh.quaternion.copy(camera.quaternion);
+          };
+
+          // Store textMesh reference in iconMesh object
+          iconMesh.textMesh = textMesh;
+
+          textMesh.iconMesh = iconMesh;
+          // Store the association between the text mesh and its icon mesh
+          textIconPairs.push({
+            textMesh,
+            iconMesh
+          });
+
+          // Attach link URL to the textMesh object
+          textMesh.linkUrl = linkUrl;
+
+          // Add both meshes to a group
+          const annotationGroup = new THREE.Group();
+          annotationGroup.add(iconMesh);
+          annotationGroup.add(textMesh);
+
+          scene.add(annotationGroup);
+
+          // Animation loop
+          setInterval(function () {
+            currentTile = (currentTile + 1) % tileHoriz; // Loop through horizontal line only
+            const offsetX = currentTile / tileHoriz;
+            iconTexture.offset.x = offsetX;
+          }, 200); // Adjust animation speed as needed
+
+          // Add event listeners to the canvas for mouseover and mouseout events
+          renderer.domElement.addEventListener('mousemove', function (event) {
+            handleMouse(event, annotationGroup);
+          });
+        });
+      }
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update(); // Update controls in the animation loop
+        renderer.render(scene, camera);
+      }
+
+      animate();
+
+      // Function to handle mouseover and mouseout events
+      function handleMouse(event, annotationGroup) {
+        // Calculate mouse position in normalized device coordinates
+        const mouse = {
+          x: (event.clientX / window.innerWidth) * 2 - 1,
+          y: -(event.clientY / window.innerHeight) * 2 + 1
+        };
+
+        // Create a Raycaster and cast a ray from the camera to the mouse position
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
+
+        // Check for intersection with objects
+        const intersects = raycaster.intersectObjects(annotationGroup.children, true);
+
+        // If there is an intersection, handle mouseover and mouseout events
+        if (intersects.length > 0) {
+          const object = intersects[0].object;
+          if (object.hasOwnProperty('textMesh')) {
+            mOver(object);
+          }
+        } else {
+          mOut(annotationGroup);
+        }
+      }
+
+      // Function to handle mouseover event
+      function mOver(object) {
+        object.visible = false;
+        object.textMesh.visible = true;
+      }
+
+      // Function to handle mouseout event
+      function mOut(annotationGroup) {
+        annotationGroup.children.forEach(function (child) {
+          if (child.hasOwnProperty('textMesh')) {
+            child.textMesh.visible = false;
+            child.visible = true;
+          }
+        });
+      }
+      const clickedIndices = [];
+      // Variable to keep track of the number of revealed images
+      let revealedImageCount = 0;
+
+      // Function to handle mouse click event
+      function onMouseClick(event) {
+        console.log('Mouse clicked');
+        // Calculate mouse position in normalized device coordinates
+        const mouse = {
+          x: (event.clientX / window.innerWidth) * 2 - 1,
+          y: -(event.clientY / window.innerHeight) * 2 + 1
+        };
+
+        // Create a Raycaster and cast a ray from the camera to the mouse position
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, camera);
+
+        // Check for intersection with objects
+        const intersects = raycaster.intersectObjects(scene.children, true);
+        console.log('Intersects:', intersects);
+
+        // If there is an intersection, handle the click event
+        if (intersects.length > 0) {
+          const clickedObject = intersects[0].object;
+
+          if (clickedObject.hasOwnProperty('textMesh')) {
+                // Check if the associated icon mesh already has a red hue saturation
+                const isClicked = textIconPairs.some(pair => pair.textMesh === clickedObject.textMesh && pair.iconMesh.material.color.getHSL().l === 0.5);
+                if (!isClicked) {
+                  // Change the color of the associated icon mesh to red
+                  const hsl = { h: 0, s: 0.7, l: 0.5 }; // Hue (teinte), Saturation, Lightness (luminosité)
+                  textIconPairs.forEach(pair => {
+                    if (pair.textMesh === clickedObject.textMesh) {
+                      pair.iconMesh.material.color.setHSL(hsl.h / 360, hsl.s, hsl.l);
+                    }
+                  });
+
+                  // Show the corresponding image
+                  const images = document.querySelectorAll('.img--illu');
+                  images.forEach((image, index) => {
+                    if (index === currentImageIndex) {
+                      image.style.display = 'block';
+                    }
+                  });
+
+                  // Increment the current image index
+                  currentImageIndex = (currentImageIndex + 1) % images.length;
+
+                  revealedImageCount++;
+
+                  // Check if all images have been revealed
+             if (revealedImageCount === images.length) {
+               // Show the pop-up image
+               document.getElementById('popup-image').style.display = 'block';
+             }
+
+                  // Add the index of the clicked link to the clickedIndices array
+                  clickedIndices.push(clickedObject.textMesh.userData.index);
+
+                  window.open(clickedObject.textMesh.linkUrl, '_blank');
+                } else {
+                  console.log('This link has already been clicked.');
+                  // Open the link without revealing another image
+                  window.open(clickedObject.textMesh.linkUrl, '_blank');
+                }
+              }
+            }
+
+            // Reset isClicked to false after each click
+            isClicked = false;
+          }
+      // Add event listener for mouse click
+      renderer.domElement.addEventListener('click', onMouseClick);
+    });
+  </script>
+  <script>
+  // Function to handle close button click event
+  function onCloseButtonClick() {
+    // Hide the pop-up image
+    document.getElementById('popup-image').style.display = 'none';
+  }
+
+  // Add event listener for close button click
+  document.getElementById('close-popup').addEventListener('click', onCloseButtonClick);
+</script>
+
+</body>
+
+</html>
